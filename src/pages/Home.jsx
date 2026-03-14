@@ -61,11 +61,8 @@ const Home = () => {
                     .limit(4)
             ]);
 
-            if (booksRes.error) console.error('Erro ao buscar livros recentes:', booksRes.error);
-            else setRecentBooks(booksRes.data || []);
-
-            if (compsRes.error) console.error('Erro ao buscar empresas:', compsRes.error);
-            else setCompanies(compsRes.data || []);
+            if (!booksRes.error) setRecentBooks(booksRes.data || []);
+            if (!compsRes.error) setCompanies(compsRes.data || []);
 
             setLoading(false);
         };

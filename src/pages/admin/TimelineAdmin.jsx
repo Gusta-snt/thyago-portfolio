@@ -30,8 +30,7 @@ const TimelineAdmin = () => {
             .select('*')
             .order('created_at', { ascending: false });
 
-        if (error) console.error('Erro ao buscar jornada:', error);
-        else setItems(data);
+        if (!error) setItems(data);
         setLoading(false);
     };
 

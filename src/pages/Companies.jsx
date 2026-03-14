@@ -18,11 +18,8 @@ const Companies = () => {
                 supabase.from('projects').select('*').order('created_at', { ascending: false })
             ]);
 
-            if (compRes.error) console.error('Erro ao buscar empresas:', compRes.error);
-            else setCompanies(compRes.data);
-
-            if (projRes.error) console.error('Erro ao buscar projetos:', projRes.error);
-            else setProjects(projRes.data);
+            if (!compRes.error) setCompanies(compRes.data);
+            if (!projRes.error) setProjects(projRes.data);
 
             setLoading(false);
         };

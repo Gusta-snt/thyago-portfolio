@@ -23,7 +23,7 @@ const Books = () => {
             .order('year', { ascending: false });
 
         if (error) {
-            console.error('Erro ao buscar livros:', error);
+            // Error handled by not setting data
         } else {
             setBooks(data);
             // Extract unique categories

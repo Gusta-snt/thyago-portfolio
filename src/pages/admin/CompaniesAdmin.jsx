@@ -33,8 +33,7 @@ const CompaniesAdmin = () => {
             .select('*')
             .order('created_at', { ascending: false });
 
-        if (error) console.error('Erro ao buscar empresas:', error);
-        else setItems(data);
+        if (!error) setItems(data);
         setLoading(false);
     };
 

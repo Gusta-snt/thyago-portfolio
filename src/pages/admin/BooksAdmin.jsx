@@ -33,8 +33,7 @@ const BooksAdmin = () => {
             .select('*')
             .order('created_at', { ascending: false });
 
-        if (error) console.error('Erro ao buscar livros:', error);
-        else setBooks(data);
+        if (!error) setBooks(data);
         setLoading(false);
     };
 

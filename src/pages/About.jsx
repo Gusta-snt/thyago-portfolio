@@ -18,11 +18,8 @@ const About = () => {
                 supabase.from('timeline').select('*').order('year_range', { ascending: false })
             ]);
 
-            if (expRes.error) console.error('Erro ao buscar expertise:', expRes.error);
-            else setExpertise(expRes.data.map(e => e.name));
-
-            if (timeRes.error) console.error('Erro ao buscar jornada:', timeRes.error);
-            else setTimeline(timeRes.data);
+            if (!expRes.error) setExpertise(expRes.data.map(e => e.name));
+            if (!timeRes.error) setTimeline(timeRes.data);
 
             setLoading(false);
         };

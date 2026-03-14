@@ -23,8 +23,7 @@ const ProjectsAdmin = () => {
             .select('*')
             .order('created_at', { ascending: false });
 
-        if (error) console.error('Erro ao buscar projetos:', error);
-        else setProjects(data);
+        if (!error) setProjects(data);
         setLoading(false);
     };
 
