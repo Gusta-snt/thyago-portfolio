@@ -1,0 +1,119 @@
+/* Global Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --color-primary: #12433e;
+  /* Deep Teal - Requested */
+  --color-primary-light: #1d5f58;
+  --color-secondary: #e6f0ef;
+  /* Very light teal/gray for backgrounds */
+  --color-accent: #d4a373;
+  /* Muted Gold/Sand - Elegant contrast with teal */
+  --color-text: #2d3748;
+  /* Slate 800 */
+  --color-text-light: #4a5568;
+  /* Slate 600 */
+  --color-background: #ffffff;
+  --color-background-alt: #f7faf9;
+  /* Hint of green/gray */
+  --color-border: #e2e8f0;
+
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  --spacing-lg: 4rem;
+  --spacing-xl: 8rem;
+
+  /* Typography */
+  --font-heading: 'Playfair Display', serif;
+  /* Elegant Serif */
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --font-size-base: 16px;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 2rem;
+  --font-size-2xl: 3rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(18, 67, 62, 0.1), 0 2px 4px -1px rgba(18, 67, 62, 0.06);
+  --shadow-lg: 0 20px 25px -5px rgba(18, 67, 62, 0.1), 0 10px 10px -5px rgba(18, 67, 62, 0.04);
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+
+  /* Transitions */
+  --transition-fast: 150ms ease-out;
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  color: var(--color-primary);
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-fast);
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: var(--font-body);
+  /* Buttons keep sans-serif for readability */
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Utility Classes */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+.section {
+  padding: var(--spacing-lg) 0;
+}
+
+.grid {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.flex {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* Subtle Textures to reduce "AI look" */
+.texture-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2312433e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}

@@ -1,0 +1,109 @@
+.book-card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    /* border-radius: 8px; */
+    /* Removed for cleaner look */
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--color-border);
+    height: 100%;
+}
+
+.book-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-primary);
+}
+
+.book-cover-container {
+    height: 280px;
+    background-color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.book-cover {
+    height: 85%;
+    /* Slightly smaller to show padding/framing */
+    width: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.book-card:hover .book-cover {
+    transform: scale(1.05);
+}
+
+.book-cover-placeholder {
+    width: 150px;
+    height: 220px;
+    background-color: #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-family: var(--font-heading);
+}
+
+.book-content {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.book-year {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.book-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+    line-height: 1.2;
+}
+
+.book-subtitle {
+    font-size: 1rem;
+    color: var(--color-text-light);
+    margin-bottom: 1.25rem;
+    font-weight: 400;
+    font-style: italic;
+    font-family: var(--font-heading);
+}
+
+.book-description {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+.book-btn {
+    width: 100%;
+    justify-content: center;
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-primary);
+    transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+    background-color: var(--color-primary);
+    color: white;
+}
