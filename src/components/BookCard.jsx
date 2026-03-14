@@ -27,7 +27,7 @@ const BookCard = ({ cover, title, description, link, year, subtitle }) => {
                     className="book-btn"
                 >
                     <ShoppingCart size={16} style={{ marginRight: '8px' }} />
-                    Comprar na Amazon
+                    Comprar o livro
                 </Button>
             </div>
         </div>

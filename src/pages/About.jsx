@@ -1,10 +1,35 @@
-import React from 'react';
-import { Download, FileText, CheckCircle, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Download, FileText, CheckCircle, Calendar, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { supabase } from '../lib/supabase';
 import Button from '../components/Button';
 import './About.css';
 
 const About = () => {
+    const [expertise, setExpertise] = useState([]);
+    const [timeline, setTimeline] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            const [expRes, timeRes] = await Promise.all([
+                supabase.from('expertise').select('name'),
+                supabase.from('timeline').select('*').order('year_range', { ascending: false })
+            ]);
+
+            if (expRes.error) console.error('Erro ao buscar expertise:', expRes.error);
+            else setExpertise(expRes.data.map(e => e.name));
+
+            if (timeRes.error) console.error('Erro ao buscar jornada:', timeRes.error);
+            else setTimeline(timeRes.data);
+
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -24,24 +49,6 @@ const About = () => {
             transition: { duration: 0.5, ease: "easeOut" }
         }
     };
-
-    const expertise = [
-        "Inteligência Artificial & Data Science",
-        "Engenharia Econômica e Financeira",
-        "Otimização Matemática",
-        "Mercado de Capitais & HFT",
-        "Business Intelligence (BI)",
-        "Planejamento Tributário"
-    ];
-
-    const timeline = [
-        { year: "2018 - 2020", role: "Esp. em Engenharia Econômica e Financeira", org: "UFG", desc: "Título: Automating Asset Trading in the Financial Market Using Artificial Intelligence." },
-        { year: "2013 - 2015", role: "Esp. em Planejamento Tributário", org: "UFG", desc: "Especialização focada em estratégias tributárias e planejamento fiscal." },
-        { year: "2005 - 2007", role: "Esp. em Economia Financeira", org: "UNICAMP", desc: "Título: Uma Gestão Eficiente de uma Carteira de Ações no Mercado Brasileiro." },
-        { year: "2002 - 2006", role: "Doutorado em Eng. Elétrica", org: "UNICAMP", desc: "Título: Uma Política Operativa a Usinas Individualizadas para o Sistema Interligado Nacional." },
-        { year: "2000 - 2002", role: "Mestrado em Eng. Elétrica e de Computação", org: "UFG", desc: "Pesquisa em alocação de contratos de energia elétrica e sistemas de apoio à decisão." },
-        { year: "1996 - 1999", role: "Graduação em Ciência da Computação", org: "IUESO", desc: "Desenvolvimento de Biblioteca Virtual." }
-    ];
 
     return (
         <motion.div
@@ -82,7 +89,7 @@ const About = () => {
 
                             <motion.div className="bio-actions" variants={itemVariants}>
                                 <Button
-                                    href="http://lattes.cnpq.br/3478059068063711"
+                                    href="https://lattes.cnpq.br/1763926064124591"
                                     target="_blank"
                                     variant="secondary"
                                 >
@@ -94,51 +101,70 @@ const About = () => {
                     </div>
                 </section>
 
-                {/* Areas of Expertise */}
-                <section className="expertise-section section">
-                    <motion.h2 className="section-title center" variants={itemVariants}>Áreas de Especialização</motion.h2>
-                    <motion.div
-                        className="expertise-grid"
-                        variants={containerVariants}
-                    >
-                        {expertise.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                className="expertise-item"
-                                variants={itemVariants}
-                                whileHover={{ scale: 1.05, backgroundColor: "#f0fdfa" }}
-                            >
-                                <CheckCircle size={20} className="expertise-icon" />
-                                <span>{item}</span>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </section>
-
-                {/* Professional Timeline */}
-                <section className="timeline-section section">
-                    <motion.h2 className="section-title center" variants={itemVariants}>Jornada Profissional</motion.h2>
-                    <div className="timeline">
-                        {timeline.map((item, index) => (
-                            <motion.div
-                                key={index}
-                                className="timeline-item"
-                                initial={{ opacity: 0, x: -20 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.2 }}
-                            >
-                                <div className="timeline-marker"></div>
-                                <div className="timeline-content">
-                                    <span className="timeline-year"><Calendar size={14} style={{ marginRight: '5px' }} /> {item.year}</span>
-                                    <h3 className="timeline-role">{item.role}</h3>
-                                    <h4 className="timeline-org">{item.org}</h4>
-                                    <p className="timeline-desc">{item.desc}</p>
-                                </div>
-                            </motion.div>
-                        ))}
+                {loading ? (
+                    <div className="loading-state" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '4rem 0' }}>
+                        <Loader2 className="spinner" size={48} style={{ color: 'var(--primary)', marginBottom: '1rem' }} />
+                        <p>Carregando informações...</p>
                     </div>
-                </section>
+                ) : (
+                    <>
+                        {/* Areas of Expertise */}
+                        {expertise.length > 0 && (
+                            <motion.section
+                                className="expertise-section section"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: "-100px" }}
+                                variants={containerVariants}
+                            >
+                                <motion.h2 className="section-title center" variants={itemVariants}>Áreas de Especialização</motion.h2>
+                                <div className="expertise-grid">
+                                    {expertise.map((item, index) => (
+                                        <motion.div
+                                            key={index}
+                                            className="expertise-item"
+                                            variants={itemVariants}
+                                            whileHover={{ scale: 1.05, backgroundColor: "#f0fdfa" }}
+                                        >
+                                            <CheckCircle size={20} className="expertise-icon" />
+                                            <span>{item}</span>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </motion.section>
+                        )}
+
+                        {/* Professional Timeline */}
+                        {timeline.length > 0 && (
+                            <motion.section
+                                className="timeline-section section"
+                                initial="hidden"
+                                whileInView="visible"
+                                viewport={{ once: true, margin: "-100px" }}
+                                variants={containerVariants}
+                            >
+                                <motion.h2 className="section-title center" variants={itemVariants}>Jornada Profissional</motion.h2>
+                                <div className="timeline">
+                                    {timeline.map((item, index) => (
+                                        <motion.div
+                                            key={index}
+                                            className="timeline-item"
+                                            variants={itemVariants}
+                                        >
+                                            <div className="timeline-marker"></div>
+                                            <div className="timeline-content">
+                                                <span className="timeline-year"><Calendar size={14} style={{ marginRight: '5px' }} /> {item.year_range}</span>
+                                                <h3 className="timeline-role">{item.role}</h3>
+                                                <h4 className="timeline-org">{item.organization}</h4>
+                                                <p className="timeline-desc">{item.description}</p>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </motion.section>
+                        )}
+                    </>
+                )}
             </div>
         </motion.div>
     );

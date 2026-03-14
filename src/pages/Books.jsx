@@ -1,68 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Loader2 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 import BookCard from '../components/BookCard';
 import './Books.css';
 
 const Books = () => {
-    const allBooks = [
-        {
-            id: 1,
-            title: "Título do Livro 1",
-            subtitle: "Subtítulo do Livro",
-            year: "2024",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            category: "Negócios",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        },
-        {
-            id: 2,
-            title: "Título do Livro 2",
-            subtitle: "Subtítulo do Livro",
-            year: "2023",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            category: "Liderança",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        },
-        {
-            id: 3,
-            title: "Título do Livro 3",
-            subtitle: "Subtítulo do Livro",
-            year: "2022",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            category: "Educação",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        },
-        {
-            id: 4,
-            title: "Título do Livro 4",
-            subtitle: "Subtítulo do Livro",
-            year: "2021",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            category: "Negócios",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        },
-        {
-            id: 5,
-            title: "Título do Livro 5",
-            subtitle: "Subtítulo do Livro",
-            year: "2020",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            category: "Liderança",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        }
-    ];
-
-    const categories = ["Todos", "Negócios", "Liderança", "Educação"];
+    const [books, setBooks] = useState([]);
+    const [categories, setCategories] = useState(["Todos"]);
     const [activeCategory, setActiveCategory] = useState("Todos");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchBooks();
+    }, []);
+
+    const fetchBooks = async () => {
+        setLoading(true);
+        const { data, error } = await supabase
+            .from('books')
+            .select('*')
+            .order('year', { ascending: false });
+
+        if (error) {
+            console.error('Erro ao buscar livros:', error);
+        } else {
+            setBooks(data);
+            // Extract unique categories
+            const uniqueCategories = ["Todos", ...new Set(data.map(book => book.category).filter(Boolean))];
+            setCategories(uniqueCategories);
+        }
+        setLoading(false);
+    };
 
     const filteredBooks = activeCategory === "Todos"
-        ? allBooks
-        : allBooks.filter(book => book.category === activeCategory);
+        ? books
+        : books.filter(book => book.category === activeCategory);
 
     return (
         <div className="books-page section">
@@ -79,48 +52,60 @@ const Books = () => {
                     </p>
                 </motion.div>
 
-                {/* Category Filter */}
-                <div className="filter-container">
-                    {categories.map(category => (
-                        <button
-                            key={category}
-                            className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
-                            onClick={() => setActiveCategory(category)}
+                {loading ? (
+                    <div className="loading-state" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '4rem 0' }}>
+                        <Loader2 className="spinner" size={48} style={{ color: 'var(--primary)', marginBottom: '1rem' }} />
+                        <p>Carregando acervo...</p>
+                    </div>
+                ) : (
+                    <>
+                        {/* Category Filter */}
+                        <div className="filter-container">
+                            {categories.map(category => (
+                                <button
+                                    key={category}
+                                    className={`filter-btn ${activeCategory === category ? 'active' : ''}`}
+                                    onClick={() => setActiveCategory(category)}
+                                >
+                                    {category}
+                                    {activeCategory === category && (
+                                        <motion.div
+                                            className="active-indicator"
+                                            layoutId="activeIndicator"
+                                        />
+                                    )}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Books Grid */}
+                        <motion.div
+                            className="books-grid"
+                            layout
                         >
-                            {category}
-                            {activeCategory === category && (
-                                <motion.div
-                                    className="active-indicator"
-                                    layoutId="activeIndicator"
-                                />
-                            )}
-                        </button>
-                    ))}
-                </div>
+                            <AnimatePresence mode='popLayout'>
+                                {filteredBooks.map((book) => (
+                                    <motion.div
+                                        key={book.id}
+                                        layout
+                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.9 }}
+                                        transition={{ duration: 0.3 }}
+                                    >
+                                        <BookCard
+                                            {...book}
+                                            cover={book.cover_url} // Map cover_url to cover as expected by BookCard
+                                        />
+                                    </motion.div>
+                                ))}
+                            </AnimatePresence>
+                        </motion.div>
 
-                {/* Books Grid */}
-                <motion.div
-                    className="books-grid"
-                    layout
-                >
-                    <AnimatePresence>
-                        {filteredBooks.map((book) => (
-                            <motion.div
-                                key={book.id}
-                                layout
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                exit={{ opacity: 0, scale: 0.9 }}
-                                transition={{ duration: 0.3 }}
-                            >
-                                <BookCard {...book} />
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
-
-                {filteredBooks.length === 0 && (
-                    <p className="no-results">Nenhum livro encontrado nesta categoria.</p>
+                        {filteredBooks.length === 0 && (
+                            <p className="no-results">Nenhum livro encontrado nesta categoria.</p>
+                        )}
+                    </>
                 )}
             </div>
         </div>

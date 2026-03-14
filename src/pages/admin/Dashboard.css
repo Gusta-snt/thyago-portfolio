@@ -1,0 +1,63 @@
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.stat-card-admin {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card-admin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon-wrapper {
+    width: 54px;
+    height: 54px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.stat-info p {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.welcome-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #12433e 0%, #065f46 100%);
+    color: white;
+    padding: 3rem;
+    border-radius: 1.5rem;
+    margin-top: 1rem;
+}
+
+.welcome-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-card p {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    max-width: 600px;
+}

@@ -42,7 +42,7 @@ const Header = () => {
 
                 <div className="header-actions desktop-only">
                     <Button
-                        href="http://lattes.cnpq.br/"
+                        href="https://lattes.cnpq.br/1763926064124591"
                         target="_blank"
                         variant="secondary"
                         className="lattes-btn"
@@ -74,7 +74,7 @@ const Header = () => {
                             ))}
                             <li>
                                 <Button
-                                    href="http://lattes.cnpq.br/"
+                                    href="https://lattes.cnpq.br/1763926064124591"
                                     target="_blank"
                                     variant="secondary"
                                     className="mobile-lattes-btn"

@@ -1,12 +1,78 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, FileText, Award, Users, BookOpen, Briefcase, ChevronRight } from 'lucide-react';
+import { ArrowRight, FileText, Award, Users, BookOpen, Briefcase, ChevronRight, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { supabase } from '../lib/supabase';
 import Button from '../components/Button';
 import BookCard from '../components/BookCard';
 import './Home.css';
 
+const FloatingIcons = () => {
+    const icons = [
+        { icon: 'fa-dollar-sign', top: '10%', left: '15%', size: '1.2rem', delay: '0s' },
+        { icon: 'fa-coins', top: '25%', left: '75%', size: '1.5rem', delay: '1s' },
+        { icon: 'fa-money-bill-trend-up', top: '60%', left: '20%', size: '1.8rem', delay: '2s' },
+        { icon: 'fa-chart-line', top: '75%', left: '60%', size: '1.4rem', delay: '0.5s' },
+        { icon: 'fa-vault', top: '40%', left: '45%', size: '2rem', delay: '1.5s' },
+        { icon: 'fa-piggy-bank', top: '15%', left: '55%', size: '1.3rem', delay: '2.5s' },
+        { icon: 'fa-money-bill', top: '80%', left: '10%', size: '1.1rem', delay: '3s' },
+        { icon: 'fa-credit-card', top: '45%', left: '85%', size: '1.2rem', delay: '0.2s' },
+    ];
+
+    return (
+        <div className="decorative-icons-container">
+            {icons.map((item, index) => (
+                <div
+                    key={index}
+                    className="floating-icon"
+                    style={{
+                        top: item.top,
+                        left: item.left,
+                        fontSize: item.size,
+                        animationDelay: item.delay,
+                        opacity: 0.4 + (Math.random() * 0.2) // Increased visibility
+                    }}
+                >
+                    <i className={`fas ${item.icon}`}></i>
+                </div>
+            ))}
+        </div>
+    );
+};
+
 const Home = () => {
+    const [recentBooks, setRecentBooks] = useState([]);
+    const [companies, setCompanies] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            const [booksRes, compsRes] = await Promise.all([
+                supabase
+                    .from('books')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(3),
+                supabase
+                    .from('companies')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(4)
+            ]);
+
+            if (booksRes.error) console.error('Erro ao buscar livros recentes:', booksRes.error);
+            else setRecentBooks(booksRes.data || []);
+
+            if (compsRes.error) console.error('Erro ao buscar empresas:', compsRes.error);
+            else setCompanies(compsRes.data || []);
+
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
+
     // Animation Variants
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -36,37 +102,6 @@ const Home = () => {
             transition: { duration: 0.6, ease: "easeOut" }
         }
     };
-
-    // Mock data for books
-    const recentBooks = [
-        {
-            id: 1,
-            title: "Título do Livro 1",
-            subtitle: "Subtítulo do Livro",
-            year: "2024",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        },
-        {
-            id: 2,
-            title: "Título do Livro 2",
-            subtitle: "Subtítulo do Livro",
-            year: "2023",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        },
-        {
-            id: 3,
-            title: "Título do Livro 3",
-            subtitle: "Subtítulo do Livro",
-            year: "2022",
-            description: "Descrição breve do livro, abordando os principais tópicos e contribuições para a área.",
-            link: "#",
-            cover: "https://placehold.co/400x600/e2e8f0/1e293b?text=Capa+do+Livro"
-        }
-    ];
 
     const stats = [
         { id: 1, value: "10+", label: "Anos de Experiência", icon: <Briefcase size={24} /> },
@@ -98,7 +133,7 @@ const Home = () => {
                                 Conheça Minha Trajetória
                             </Button>
                             <Button
-                                href="http://lattes.cnpq.br/3478059068063711"
+                                href="https://lattes.cnpq.br/1763926064124591"
                                 target="_blank"
                                 variant="secondary"
                             >
@@ -143,8 +178,8 @@ const Home = () => {
                                 Ler Biografia Completa <ArrowRight size={16} />
                             </Link>
                         </div>
-                        <div className="preview-image-wrapper">
-                            <img src="https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png" alt="Sobre" className="preview-image" />
+                        <div className="preview-image-wrapper decorative">
+                            <FloatingIcons />
                         </div>
                     </motion.div>
                 </div>
@@ -179,19 +214,29 @@ const Home = () => {
                             Ver Todos os Livros <ArrowRight size={16} />
                         </Link>
                     </div>
-                    <motion.div
-                        className="books-grid"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={containerVariants}
-                    >
-                        {recentBooks.map((book) => (
-                            <motion.div key={book.id} variants={itemVariants}>
-                                <BookCard {...book} />
-                            </motion.div>
-                        ))}
-                    </motion.div>
+                    {loading ? (
+                        <div className="loading-state" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '4rem 0', color: '#64748b' }}>
+                            <Loader2 className="spinner" size={48} style={{ color: 'var(--color-primary)', marginBottom: '1rem' }} />
+                            <p>Carregando publicações recentes...</p>
+                        </div>
+                    ) : (
+                        <motion.div
+                            className="books-grid"
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true }}
+                            variants={containerVariants}
+                        >
+                            {recentBooks.map((book) => (
+                                <motion.div key={book.id} variants={itemVariants}>
+                                    <BookCard
+                                        {...book}
+                                        cover={book.cover_url}
+                                    />
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    )}
                 </div>
             </section>
 
@@ -215,18 +260,26 @@ const Home = () => {
                             </Link>
                         </div>
                         <div className="preview-grid-images">
-                            <div className="grid-img-item" style={{ backgroundColor: 'white' }}>
-                                <img src="https://placehold.co/150x80/png?text=Empresa+1" alt="Logo 1" style={{ maxWidth: '100%' }} />
-                            </div>
-                            <div className="grid-img-item" style={{ backgroundColor: 'white' }}>
-                                <img src="https://placehold.co/150x80/png?text=Empresa+2" alt="Logo 2" style={{ maxWidth: '100%' }} />
-                            </div>
-                            <div className="grid-img-item" style={{ backgroundColor: 'white' }}>
-                                <img src="https://placehold.co/150x80/png?text=Empresa+3" alt="Logo 3" style={{ maxWidth: '100%' }} />
-                            </div>
-                            <div className="grid-img-item" style={{ backgroundColor: 'white' }}>
-                                <img src="https://placehold.co/150x80/png?text=Empresa+4" alt="Logo 4" style={{ maxWidth: '100%' }} />
-                            </div>
+                            {loading && companies.length === 0 ? (
+                                <div className="loading-state" style={{ gridColumn: 'span 2', padding: '1rem' }}>
+                                    <Loader2 className="spinner" size={24} />
+                                </div>
+                            ) : companies.length > 0 ? (
+                                companies.map((company) => (
+                                    <div key={company.id} className="grid-img-item" style={{ backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        <img
+                                            src={company.logo_url}
+                                            alt={company.name}
+                                            style={{ maxWidth: '80%', maxHeight: '80%', objectFit: 'contain' }}
+                                        />
+                                    </div>
+                                ))
+                            ) : (
+                                // Fallback if no companies found
+                                <div className="grid-img-item" style={{ backgroundColor: 'white', gridColumn: 'span 2' }}>
+                                    <p style={{ fontSize: '0.875rem', color: '#64748b' }}>Nenhuma empresa cadastrada.</p>
+                                </div>
+                            )}
                         </div>
                     </motion.div>
                 </div>
