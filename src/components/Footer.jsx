@@ -10,7 +10,7 @@ const Footer = () => {
         <footer className="footer">
             <div className="container footer-container">
                 <div className="footer-column branding">
-                    <h3 className="footer-title">Prof. Thyago Carvalho</h3>
+                    <h3 className="footer-title">Prof. Dr. Thyago C. Marques</h3>
                     <p className="footer-description">
                         Educação, inovação e transformação através do conhecimento.
                         Dedicado ao avanço da pesquisa acadêmica e crescimento profissional.
@@ -38,12 +38,20 @@ const Footer = () => {
                         <Mail size={16} />
                         <a href="mailto:thyago@ufg.br">thyago@ufg.br</a>
                     </p>
+                    <div className="social-icons">
+                        <a href="https://www.linkedin.com/in/thyago-carvalho-marques/" target="_blank" rel="noopener noreferrer" className="social-link" title="LinkedIn">
+                            <Linkedin size={18} />
+                        </a>
+                        <a href="https://www.instagram.com/thyagomarques01/" target="_blank" rel="noopener noreferrer" className="social-link" title="Instagram">
+                            <Instagram size={18} />
+                        </a>
+                    </div>
                 </div>
             </div>
 
             <div className="footer-bottom">
                 <div className="container">
-                    <p>&copy; {currentYear} Prof. Thyago Carvalho. Todos os direitos reservados.</p>
+                    <p>&copy; {currentYear} Prof. Dr. Thyago C. Marques. Todos os direitos reservados.</p>
                 </div>
             </div>
         </footer>

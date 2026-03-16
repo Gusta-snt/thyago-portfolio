@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Download, FileText, CheckCircle, Calendar, Loader2 } from 'lucide-react';
+import { Download, FileText, CheckCircle, Calendar, Loader2, Linkedin, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { supabase } from '../lib/supabase';
 import Button from '../components/Button';
@@ -66,7 +66,7 @@ const About = () => {
                         >
                             <img
                                 src="http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4772258J6"
-                                alt="Retrato do Professor Thyago Carvalho"
+                                alt="Retrato do Professor Thyago C. Marques"
                                 className="bio-image"
                             />
                             <div className="bio-shape"></div>
@@ -75,13 +75,16 @@ const About = () => {
                             <motion.h1 className="page-title" variants={itemVariants}>Sobre Mim</motion.h1>
                             <motion.h2 className="bio-subtitle" variants={itemVariants}>Academia, Engenharia e Mercado Financeiro</motion.h2>
                             <motion.p className="bio-text" variants={itemVariants}>
-                                Sou Professor Associado IV na Escola de Engenharia Elétrica, Mecânica e de Computação (EMC) da Universidade Federal de Goiás (UFG) e Pesquisador EMBRAPII. Minha trajetória combina sólida formação acadêmica com vasta experiência prática em engenharia econômica, financeira e desenvolvimento de softwares inteligentes.
+                                Sou apaixonado por conectar engenharia, finanças e tecnologia para gerar impacto, valor e transformação. Doutor em Engenharia Elétrica e Computação pela UNICAMP, com especializações em Economia Financeira, Planejamento Tributário e Engenharia Econômica e Financeira, atuo como Professor Associado da UFG, onde também coordeno o Curso de Especialização (MBA) em Engenharia Econômica e Financeira nos Negócios.
                             </motion.p>
                             <motion.p className="bio-text" variants={itemVariants}>
-                                Graduado em Ciência da Computação, Mestre e Doutor em Engenharia Elétrica e de Computação (Unicamp), possuo também especializações em Economia Financeira e Planejamento Tributário. Essa multidisciplinaridade me permite atuar na fronteira entre tecnologia e negócios, desenvolvendo soluções de *Business Intelligence*, *Data Science* e Inteligência Artificial para otimização de processos e viabilidade econômica.
+                                Minha carreira é construída na convergência entre o meio acadêmico, o setor privado e a gestão pública. Fui Subsecretário de Ciência, Tecnologia e Inovação do Estado de Goiás, onde pude contribuir diretamente para políticas públicas de inovação e desenvolvimento tecnológico.
                             </motion.p>
                             <motion.p className="bio-text" variants={itemVariants}>
-                                Tenho forte atuação no Mercado de Capitais, com experiência no desenvolvimento de robôs de investimento (HFT - High Frequency Trading). Além disso, coordeno o curso de Especialização em Engenharia Econômica e Financeira nos Negócios e atuo como Coordenador de Desenvolvimento de Projetos no CEIA (Centro de Excelência em Inteligência Artificial), um dos principais hubs de IA do Brasil.
+                                Sou cofundador da Spin-off WTI (Wedan Tecnologia e Inovação), que desenvolve soluções inteligentes para risco, saúde e previdência e da StartUp TauMoney Finanças e Tecnologia, uma plataforma que propicia planejamento e educação financeira, utilizando tecnologia avançada, com otimizações e simulações de cenários realistas. Além disso, lidero diversos projetos de tecnologia e inovação no Centro de Excelência em Inteligência Artificial (CEIA) da UFG e na EMBRAPII, nas áreas de Machine Learning, Big Data, Inteligência Artificial e Mineração de Dados.
+                            </motion.p>
+                            <motion.p className="bio-text" variants={itemVariants}>
+                                Minha missão é desenvolver e aplicar conhecimento em finanças, mercado de capitais, engenharia econômica, otimização matemática e ciência de dados, transformando desafios complexos em soluções inovadoras para negócios, governos e sociedade.
                             </motion.p>
 
                             <motion.div className="bio-actions" variants={itemVariants}>
@@ -92,6 +95,22 @@ const About = () => {
                                 >
                                     <FileText size={18} style={{ marginRight: '8px' }} />
                                     Ver Currículo Lattes Completo
+                                </Button>
+                                <Button
+                                    href="https://www.linkedin.com/in/thyago-carvalho-marques/"
+                                    target="_blank"
+                                    variant="secondary"
+                                >
+                                    <Linkedin size={18} style={{ marginRight: '8px' }} />
+                                    LinkedIn
+                                </Button>
+                                <Button
+                                    href="https://www.instagram.com/thyagomarques01/"
+                                    target="_blank"
+                                    variant="secondary"
+                                >
+                                    <Instagram size={18} style={{ marginRight: '8px' }} />
+                                    Instagram
                                 </Button>
                             </motion.div>
                         </motion.div>

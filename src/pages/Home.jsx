@@ -119,7 +119,7 @@ const Home = () => {
                         variants={containerVariants}
                     >
                         <motion.h1 className="hero-title" variants={itemVariants}>
-                            Professor <span className="highlight">Thyago Carvalho</span>
+                            Professor <span className="highlight">Thyago C. Marques</span>
                         </motion.h1>
                         <motion.p className="hero-subtitle" variants={itemVariants}>
                             Especialista em Inteligência Artificial, Engenharia Econômica e Otimização Matemática.
@@ -148,7 +148,7 @@ const Home = () => {
                     >
                         <img
                             src="http://servicosweb.cnpq.br/wspessoa/servletrecuperafoto?tipo=1&id=K4772258J6"
-                            alt="Professor Thyago Carvalho"
+                            alt="Professor Thyago C. Marques"
                             className="hero-image"
                         />
                         <div className="hero-shape"></div>

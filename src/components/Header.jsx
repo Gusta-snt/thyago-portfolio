@@ -21,7 +21,7 @@ const Header = () => {
         <header className="header">
             <div className="container header-container">
                 <Link to="/" className="header-logo">
-                    Prof. Thyago Carvalho
+                    Prof. Dr. Thyago C. Marques
                 </Link>
 
                 {/* Desktop Navigation */}
