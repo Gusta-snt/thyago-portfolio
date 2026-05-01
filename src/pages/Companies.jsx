@@ -13,15 +13,19 @@ const Companies = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const [compRes, projRes] = await Promise.all([
-                supabase.from('companies').select('*').order('created_at', { ascending: false }),
-                supabase.from('projects').select('*').order('created_at', { ascending: false })
-            ]);
+            try {
+                const [compRes, projRes] = await Promise.all([
+                    supabase.from('companies').select('*').order('created_at', { ascending: false }),
+                    supabase.from('projects').select('*').order('created_at', { ascending: false })
+                ]);
 
-            if (!compRes.error) setCompanies(compRes.data);
-            if (!projRes.error) setProjects(projRes.data);
-
-            setLoading(false);
+                if (!compRes.error) setCompanies(compRes.data);
+                if (!projRes.error) setProjects(projRes.data);
+            } catch (error) {
+                console.error("Error fetching companies data:", error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchData();

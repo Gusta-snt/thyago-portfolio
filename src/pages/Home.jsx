@@ -48,23 +48,27 @@ const Home = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const [booksRes, compsRes] = await Promise.all([
-                supabase
-                    .from('books')
-                    .select('*')
-                    .order('created_at', { ascending: false })
-                    .limit(3),
-                supabase
-                    .from('companies')
-                    .select('*')
-                    .order('created_at', { ascending: false })
-                    .limit(4)
-            ]);
+            try {
+                const [booksRes, compsRes] = await Promise.all([
+                    supabase
+                        .from('books')
+                        .select('*')
+                        .order('created_at', { ascending: false })
+                        .limit(3),
+                    supabase
+                        .from('companies')
+                        .select('*')
+                        .order('created_at', { ascending: false })
+                        .limit(4)
+                ]);
 
-            if (!booksRes.error) setRecentBooks(booksRes.data || []);
-            if (!compsRes.error) setCompanies(compsRes.data || []);
-
-            setLoading(false);
+                if (!booksRes.error) setRecentBooks(booksRes.data || []);
+                if (!compsRes.error) setCompanies(compsRes.data || []);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchData();
@@ -102,9 +106,9 @@ const Home = () => {
 
     const stats = [
         { id: 1, value: "10+", label: "Anos de Experiência", icon: <Briefcase size={24} /> },
-        { id: 2, value: "CEIA", label: "Coord. Projetos IA", icon: <Award size={24} /> },
-        { id: 3, value: "UFG", label: "Professor Associado", icon: <Users size={24} /> },
-        { id: 4, value: "EMBRAPII", label: "Pesquisador", icon: <BookOpen size={24} /> },
+        { id: 2, value: "CEIA", label: "Coord. Projetos IA", icon: <Award size={24} />, url: "https://ceia.ufg.br/" },
+        { id: 3, value: "UFG", label: "Professor Associado", icon: <Users size={24} />, url: "https://emc.ufg.br/" },
+        { id: 4, value: "EMBRAPII", label: "Pesquisador", icon: <BookOpen size={24} />, url: "https://embrapii.org.br/" },
     ];
 
     return (
@@ -169,7 +173,7 @@ const Home = () => {
                         <div className="preview-content">
                             <h2 className="preview-title">Sobre Mim</h2>
                             <p className="preview-text">
-                                Com uma sólida formação acadêmica e prática, atuo na interseção entre Engenharia, Economia e Tecnologia. Sou Professor Associado na UFG, Coordenador de Projetos no CEIA (Centro de Excelência em IA) e ex-Subsecretário de Ciência e Tecnologia de Goiás. Minha missão é aplicar modelos matemáticos e IA para resolver problemas complexos de mercado e sociedade.
+                                Com uma sólida formação acadêmica e prática, atuo na interseção entre Engenharia, Economia e Tecnologia. Sou Professor Associado na <a href="https://emc.ufg.br/" target="_blank" rel="noopener noreferrer" className="inline-link">UFG</a>, Coordenador de Projetos no <a href="https://ceia.ufg.br/" target="_blank" rel="noopener noreferrer" className="inline-link">CEIA (Centro de Excelência em IA)</a> e ex-Subsecretário de Ciência e Tecnologia de Goiás. Minha missão é aplicar modelos matemáticos e IA para resolver problemas complexos de mercado e sociedade.
                             </p>
                             <Link to="/about" className="preview-link">
                                 Ler Biografia Completa <ArrowRight size={16} />
@@ -195,7 +199,15 @@ const Home = () => {
                             transition={{ delay: index * 0.1, duration: 0.5 }}
                         >
                             <div className="stat-icon">{stat.icon}</div>
-                            <h3 className="stat-value">{stat.value}</h3>
+                            <h3 className="stat-value">
+                                {stat.url ? (
+                                    <a href={stat.url} target="_blank" rel="noopener noreferrer" className="stat-link">
+                                        {stat.value}
+                                    </a>
+                                ) : (
+                                    stat.value
+                                )}
+                            </h3>
                             <p className="stat-label">{stat.label}</p>
                         </motion.div>
                     ))}

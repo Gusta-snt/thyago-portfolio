@@ -17,20 +17,22 @@ const Books = () => {
 
     const fetchBooks = async () => {
         setLoading(true);
-        const { data, error } = await supabase
-            .from('books')
-            .select('*')
-            .order('year', { ascending: false });
+        try {
+            const { data, error } = await supabase
+                .from('books')
+                .select('*')
+                .order('year', { ascending: false });
 
-        if (error) {
-            // Error handled by not setting data
-        } else {
-            setBooks(data);
-            // Extract unique categories
-            const uniqueCategories = ["Todos", ...new Set(data.map(book => book.category).filter(Boolean))];
-            setCategories(uniqueCategories);
+            if (!error) {
+                setBooks(data);
+                const uniqueCategories = ["Todos", ...new Set(data.map(book => book.category).filter(Boolean))];
+                setCategories(uniqueCategories);
+            }
+        } catch (error) {
+            console.error("Error fetching books:", error);
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     };
 
     const filteredBooks = activeCategory === "Todos"

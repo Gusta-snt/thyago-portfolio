@@ -9,12 +9,17 @@ const Header = () => {
     const location = useLocation();
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const isActivePath = (path) => {
+        if (path === '/') return location.pathname === '/';
+        return location.pathname === path || location.pathname.startsWith(`${path}/`);
+    };
 
     const navLinks = [
         { name: 'Início', path: '/' },
         { name: 'Sobre', path: '/about' },
         { name: 'Livros', path: '/books' },
         { name: 'Empresas', path: '/companies' },
+        { name: 'Projetos CEIA', path: '/ceia' },
     ];
 
     return (
@@ -31,7 +36,7 @@ const Header = () => {
                             <li key={link.name}>
                                 <Link
                                     to={link.path}
-                                    className={`nav-link ${location.pathname === link.path ? 'active' : ''}`}
+                                    className={`nav-link ${isActivePath(link.path) ? 'active' : ''}`}
                                 >
                                     {link.name}
                                 </Link>

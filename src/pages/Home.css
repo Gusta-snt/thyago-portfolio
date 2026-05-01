@@ -41,10 +41,10 @@
 .hero-title .highlight::after {
     content: '';
     position: absolute;
-    bottom: 8px;
+    bottom: 2px;
     left: -5px;
     right: -5px;
-    height: 12px;
+    height: 4px;
     background-color: rgba(212, 163, 115, 0.4);
     /* Muted Gold highlight */
     z-index: -1;
@@ -63,6 +63,7 @@
 .hero-actions {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .hero-image-container {
@@ -224,7 +225,7 @@
 .stats-section {
     background-color: var(--color-primary);
     color: #f0f9ff;
-    padding: 5rem 0;
+    padding: 8rem 0;
     position: relative;
     overflow: hidden;
 }
@@ -274,11 +275,21 @@
     letter-spacing: 1px;
 }
 
+.stat-link {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.stat-link:hover {
+    color: var(--color-accent);
+}
+
 /* Books Preview */
 .section-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     margin-bottom: 3rem;
     border-bottom: 1px solid var(--color-border);
     padding-bottom: 1.5rem;
@@ -376,6 +387,14 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .stats-section {
+        padding: 4rem 0;
+    }
+
+    .contact-cta {
+        padding: 4rem 0;
+    }
+
     .preview-card,
     .preview-card.reverse {
         grid-template-columns: 1fr;
@@ -397,8 +416,20 @@
 }
 
 @media (max-width: 600px) {
+    .hero-section {
+        padding: 4rem 0;
+    }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+    }
+
+    .preview-title {
+        font-size: 2rem;
+    }
+
+    .contact-cta h2 {
+        font-size: 2rem;
     }
 
     .section-header {

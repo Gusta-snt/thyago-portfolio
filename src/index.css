@@ -80,6 +80,20 @@ a {
   transition: color var(--transition-fast);
 }
 
+.inline-link {
+  color: var(--color-primary);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: all var(--transition-fast);
+}
+
+.inline-link:hover {
+  color: var(--color-accent);
+}
+
 ul {
   list-style: none;
 }
@@ -116,4 +130,18 @@ button {
 /* Subtle Textures to reduce "AI look" */
 .texture-overlay {
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2312433e' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Mobile Responsiveness Adjustments */
+@media (max-width: 768px) {
+  :root {
+    --spacing-lg: 3rem;
+    --spacing-xl: 4rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2.25rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
 }

@@ -10,7 +10,8 @@ import {
     Menu,
     X,
     User,
-    Layers
+    Layers,
+    Clapperboard
 } from 'lucide-react';
 import './AdminLayout.css';
 
@@ -42,6 +43,7 @@ const AdminLayout = () => {
         { path: '/admin/books', icon: <BookOpen size={20} />, label: 'Livros' },
         { path: '/admin/companies', icon: <Briefcase size={20} />, label: 'Empresas' },
         { path: '/admin/projects', icon: <Layers size={20} />, label: 'Projetos' },
+        { path: '/admin/ceia-projects', icon: <Clapperboard size={20} />, label: 'Projetos CEIA' },
         { path: '/admin/timeline', icon: <Clock size={20} />, label: 'Jornada' },
     ];
 

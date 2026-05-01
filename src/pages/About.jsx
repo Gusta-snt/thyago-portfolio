@@ -13,15 +13,19 @@ const About = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const [expRes, timeRes] = await Promise.all([
-                supabase.from('expertise').select('name'),
-                supabase.from('timeline').select('*').order('year_range', { ascending: false })
-            ]);
+            try {
+                const [expRes, timeRes] = await Promise.all([
+                    supabase.from('expertise').select('name'),
+                    supabase.from('timeline').select('*').order('year_range', { ascending: false })
+                ]);
 
-            if (!expRes.error) setExpertise(expRes.data.map(e => e.name));
-            if (!timeRes.error) setTimeline(timeRes.data);
-
-            setLoading(false);
+                if (!expRes.error) setExpertise(expRes.data.map(e => e.name));
+                if (!timeRes.error) setTimeline(timeRes.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchData();
@@ -75,13 +79,13 @@ const About = () => {
                             <motion.h1 className="page-title" variants={itemVariants}>Sobre Mim</motion.h1>
                             <motion.h2 className="bio-subtitle" variants={itemVariants}>Academia, Engenharia e Mercado Financeiro</motion.h2>
                             <motion.p className="bio-text" variants={itemVariants}>
-                                Sou apaixonado por conectar engenharia, finanças e tecnologia para gerar impacto, valor e transformação. Doutor em Engenharia Elétrica e Computação pela UNICAMP, com especializações em Economia Financeira, Planejamento Tributário e Engenharia Econômica e Financeira, atuo como Professor Associado da UFG, onde também coordeno o Curso de Especialização (MBA) em Engenharia Econômica e Financeira nos Negócios.
+                                Sou apaixonado por conectar engenharia, finanças e tecnologia para gerar impacto, valor e transformação. Doutor em Engenharia Elétrica e Computação pela UNICAMP, com especializações em Economia Financeira, Planejamento Tributário e Engenharia Econômica e Financeira, atuo como Professor Associado da <a href="https://emc.ufg.br/" target="_blank" rel="noopener noreferrer" className="inline-link">UFG</a>, onde também coordeno o Curso de Especialização (MBA) em Engenharia Econômica e Financeira nos Negócios.
                             </motion.p>
                             <motion.p className="bio-text" variants={itemVariants}>
                                 Minha carreira é construída na convergência entre o meio acadêmico, o setor privado e a gestão pública. Fui Subsecretário de Ciência, Tecnologia e Inovação do Estado de Goiás, onde pude contribuir diretamente para políticas públicas de inovação e desenvolvimento tecnológico.
                             </motion.p>
                             <motion.p className="bio-text" variants={itemVariants}>
-                                Sou cofundador da Spin-off WTI (Wedan Tecnologia e Inovação), que desenvolve soluções inteligentes para risco, saúde e previdência e da StartUp TauMoney Finanças e Tecnologia, uma plataforma que propicia planejamento e educação financeira, utilizando tecnologia avançada, com otimizações e simulações de cenários realistas. Além disso, lidero diversos projetos de tecnologia e inovação no Centro de Excelência em Inteligência Artificial (CEIA) da UFG e na EMBRAPII, nas áreas de Machine Learning, Big Data, Inteligência Artificial e Mineração de Dados.
+                                Sou cofundador da Spin-off WTI (Wedan Tecnologia e Inovação), que desenvolve soluções inteligentes para risco, saúde e previdência e da StartUp TauMoney Finanças e Tecnologia, uma plataforma que propicia planejamento e educação financeira, utilizando tecnologia avançada, com otimizações e simulações de cenários realistas. Além disso, lidero diversos projetos de tecnologia e inovação no <a href="https://ceia.ufg.br/" target="_blank" rel="noopener noreferrer" className="inline-link">Centro de Excelência em Inteligência Artificial (CEIA)</a> da <a href="https://emc.ufg.br/" target="_blank" rel="noopener noreferrer" className="inline-link">UFG</a> e na <a href="https://embrapii.org.br/" target="_blank" rel="noopener noreferrer" className="inline-link">EMBRAPII</a>, nas áreas de Machine Learning, Big Data, Inteligência Artificial e Mineração de Dados.
                             </motion.p>
                             <motion.p className="bio-text" variants={itemVariants}>
                                 Minha missão é desenvolver e aplicar conhecimento em finanças, mercado de capitais, engenharia econômica, otimização matemática e ciência de dados, transformando desafios complexos em soluções inovadoras para negócios, governos e sociedade.

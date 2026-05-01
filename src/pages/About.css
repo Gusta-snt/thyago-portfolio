@@ -194,3 +194,44 @@
         margin: 0 auto;
     }
 }
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.25rem;
+    }
+
+    .bio-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .timeline {
+        padding-left: 1.5rem;
+        margin-top: 3rem;
+    }
+
+    .timeline-item {
+        margin-bottom: 2.5rem;
+    }
+
+    .timeline-marker {
+        left: -1.9rem;
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+
+    .timeline-role {
+        font-size: 1.25rem;
+    }
+
+    .timeline-org {
+        font-size: 1rem;
+    }
+
+    .bio-actions {
+        flex-direction: column;
+    }
+
+    .bio-actions .btn {
+        width: 100%;
+    }
+}

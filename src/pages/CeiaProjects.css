@@ -1,0 +1,412 @@
+.ceia-page {
+    background-color: var(--color-background-alt);
+}
+
+.ceia-intro {
+    max-width: 720px;
+    margin: 0 auto 3rem;
+}
+
+.ceia-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4rem 0;
+    gap: 0.75rem;
+}
+
+.ceia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.ceia-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.25s ease;
+}
+
+.ceia-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.ceia-card-image {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    object-position: center;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(180deg, #1f3a36 0%, #0f1f2f 100%);
+}
+
+.ceia-card-content {
+    padding: 1.2rem;
+}
+
+.ceia-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.6rem;
+}
+
+.ceia-card-header h2 {
+    font-size: 1.15rem;
+    margin: 0;
+    color: var(--color-primary);
+}
+
+.ceia-card-content p {
+    color: var(--color-text-light);
+    margin-bottom: 1rem;
+}
+
+.status-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.status-badge.concluido {
+    background-color: #e6f4ea;
+    color: #1e8e3e;
+}
+
+.status-badge.em_andamento {
+    background-color: #e8f0fe;
+    color: #1a73e8;
+}
+
+.ceia-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: gap 0.2s ease, opacity 0.2s ease;
+}
+
+.ceia-card:hover .ceia-card-link {
+    gap: 0.55rem;
+    opacity: 0.95;
+}
+
+.ceia-detail {
+    max-width: 900px;
+}
+
+.ceia-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-primary);
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+
+.ceia-detail-image {
+    width: min(100%, 360px);
+    max-height: 140px;
+    display: block;
+    margin: 0 0 1.5rem 0;
+    object-fit: contain;
+    object-position: center;
+    padding: 0.55rem 0.7rem;
+    background: linear-gradient(180deg, #1f3a36 0%, #0f1f2f 100%);
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+}
+
+.markdown-body {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-text);
+}
+
+.markdown-body h2 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.markdown-body h3 {
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.markdown-body p {
+    margin-bottom: 1rem;
+}
+
+.markdown-body ul, .markdown-body ol {
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+}
+
+.markdown-body li {
+    margin-bottom: 0.5rem;
+}
+
+.markdown-body strong {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.markdown-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--color-border);
+}
+
+.markdown-body th, .markdown-body td {
+    border: 1px solid var(--color-border);
+    padding: 0.75rem 1rem;
+    text-align: left;
+}
+
+.markdown-body th {
+    background-color: var(--color-background-alt);
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.markdown-body tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.ceia-video-wrapper {
+    margin-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 1.5rem;
+}
+
+.ceia-video-wrapper h2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+}
+
+.ceia-video-player {
+    width: 100%;
+    border-radius: 10px;
+    background: #000;
+}
+
+.researchers-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+}
+
+.researchers-section h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+    font-family: var(--font-heading);
+}
+
+.researchers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.researcher-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: #fff;
+    padding: 1.25rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease;
+}
+
+.researcher-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.researcher-card.featured-researcher {
+    border: 2px solid var(--color-accent);
+    background: linear-gradient(135deg, #ffffff 0%, var(--color-background-alt) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.researcher-card.featured-researcher::before {
+    content: 'Coordenador';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-bottom-left-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: -2px 2px 5px rgba(0,0,0,0.05);
+}
+
+.researcher-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 2px solid var(--color-background-alt);
+}
+
+.researcher-avatar.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary-light);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.researcher-info h4 {
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+}
+
+.researcher-headline {
+    font-size: 0.85rem;
+    color: var(--color-text-light);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.lattes-link {
+    font-size: 0.85rem;
+}
+
+/* Filter Buttons */
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-light);
+    transition: all var(--transition-fast);
+}
+
+.filter-btn:hover {
+    border-color: var(--color-primary-light);
+    color: var(--color-primary);
+}
+
+.filter-btn.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .ceia-intro {
+        margin-bottom: 2rem;
+    }
+
+    .ceia-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ceia-card-image {
+        height: 140px;
+        padding: 1rem;
+    }
+
+    .ceia-card-content {
+        padding: 1rem;
+    }
+
+    .ceia-card-header {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .ceia-card-header h2 {
+        font-size: 1.05rem;
+    }
+
+    .filter-container {
+        flex-direction: column;
+        padding: 0 1rem;
+    }
+
+    .filter-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+    }
+
+    .researchers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .researcher-card {
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .researcher-avatar {
+        margin-bottom: 0.5rem;
+    }
+
+    .markdown-body {
+        font-size: 1rem;
+    }
+
+    .markdown-body table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .ceia-video-wrapper {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    .ceia-video-wrapper h2 {
+        font-size: 1.15rem;
+    }
+}

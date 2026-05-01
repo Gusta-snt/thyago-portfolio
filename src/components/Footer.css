@@ -66,6 +66,8 @@
 .social-icons {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
 }
 
 .social-link {

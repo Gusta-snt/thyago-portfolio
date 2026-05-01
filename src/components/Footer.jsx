@@ -24,6 +24,7 @@ const Footer = () => {
                         <li><Link to="/about">Sobre</Link></li>
                         <li><Link to="/books">Livros</Link></li>
                         <li><Link to="/companies">Empresas</Link></li>
+                        <li><Link to="/ceia">Projetos CEIA</Link></li>
                         <li>
                             <a href="https://lattes.cnpq.br/1763926064124591" target="_blank" rel="noopener noreferrer">
                                 Currículo Lattes
